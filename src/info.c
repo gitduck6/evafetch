@@ -46,7 +46,11 @@ char * get_ram()
 {
     struct sysinfo info;
     sysinfo(&info);
-    char *msg = "%.2fG/%.2fG (%.0d%%)";
+    if (sysinfo(&info) != 0) {
+        perror("sysinfo");
+        return NULL;
+    }
+    char *msg = "%.2fG/%.2fG (%.0f%%)";
 
     float total = (float)info.totalram / (1024 * 1024 * 1024);
     float used = total - ((float)info.freeram / (1024 * 1024 * 1024));
