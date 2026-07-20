@@ -3,15 +3,15 @@
 
 char * get_hostname()
 {
-    struct utsname name;
-    if (uname(&name) == -1)
+    struct utsname Uname;
+    if (uname(&Uname) == -1)
     {
         perror("uname");
         return NULL;
     }
 
 
-    char * hostname = strdup(name.nodename);
+    char * hostname = strdup(Uname.nodename);
     if (hostname == NULL)
     {
         perror("malloc");
@@ -21,22 +21,22 @@ char * get_hostname()
 
 char * get_kernel()
 {
-    struct utsname name;
-    if (uname(&name) == -1)
+    struct utsname Uname;
+    if (uname(&Uname) == -1)
     {
         perror("uname");
         return NULL;
     }
 
 
-    int sysname_len = strlen(name.sysname);
-    int release_len = strlen(name.release);
+    int sysname_len = strlen(Uname.sysname);
+    int release_len = strlen(Uname.release);
 
     char * kernel = malloc(sysname_len + release_len + 2);
 
-    strcpy(kernel, name.sysname);
+    strcpy(kernel, Uname.sysname);
     kernel[sysname_len] = ' ';
-    strcpy(kernel + sysname_len + 1, name.release);
+    strcpy(kernel + sysname_len + 1, Uname.release);
 
     return kernel;
 }
@@ -45,6 +45,7 @@ char * get_kernel()
 char * get_ram()
 {
     int status = 0;
+    struct sysinfo Systeminfo;
     /*\
     * uptime is only 0 if sysinfo() hasnt been run yet
     * we do this in order to run sysinfo once even if multiple functions require its output
