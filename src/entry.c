@@ -1,6 +1,8 @@
 #include <entry.h>
 #include <info.h>
+#include <linux/sysinfo.h>
 
+struct sysinfo info = {0};
 int entry_count;
 entry entries[] =
 {

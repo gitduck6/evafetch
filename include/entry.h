@@ -1,6 +1,8 @@
 #ifndef ENTRY_H
 #define ENTRY_H
 
+#include <sys/sysinfo.h>
+
 typedef struct
 {
     char active;
@@ -8,7 +10,7 @@ typedef struct
     char* (*func_ptr)();
 } entry;
 
-
+extern struct sysinfo info;
 extern entry entries[];
 extern int entry_count;
 

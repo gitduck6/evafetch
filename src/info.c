@@ -44,12 +44,21 @@ char * get_kernel()
 
 char * get_ram()
 {
-    struct sysinfo info;
-    sysinfo(&info);
-    if (sysinfo(&info) != 0) {
+    int status = 0;
+    /*\
+    * uptime is only 0 if sysinfo() hasnt been run yet
+    * we do this in order to run sysinfo once even if multiple functions require its output
+    * ill do something similar with uname
+    \*/
+    if (info.uptime == 0)
+        status = sysinfo(&info);
+
+
+    if (status != 0) {
         perror("sysinfo");
         return NULL;
     }
+
     char *msg = "%.2fG/%.2fG (%.0f%%)";
 
     float total = ((float)info.totalram * info.mem_unit)
@@ -59,6 +68,11 @@ char * get_ram()
     / (1024 * 1024 * 1024));
 
     int len = snprintf(NULL, 0, msg, used, total, (used/total) * 100);
+    if (len < 0 )
+    {
+        perror("snprintf");
+        return NULL;
+    }
 
     char * ram_data = malloc(len + 1);
     if (ram_data == NULL)
