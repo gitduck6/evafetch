@@ -52,8 +52,11 @@ char * get_ram()
     }
     char *msg = "%.2fG/%.2fG (%.0f%%)";
 
-    float total = (float)info.totalram / (1024 * 1024 * 1024);
-    float used = total - ((float)info.freeram / (1024 * 1024 * 1024));
+    float total = ((float)info.totalram * info.mem_unit)
+    / (1024 * 1024 * 1024);
+
+    float used = total - (((float)info.freeram * info.mem_unit)
+    / (1024 * 1024 * 1024));
 
     int len = snprintf(NULL, 0, msg, used, total, (used/total) * 100);
 
