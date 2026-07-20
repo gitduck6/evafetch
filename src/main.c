@@ -3,13 +3,10 @@
 #include <info.h>
 #include <stdlib.h>
 
-
 int main(void)
 {
-    entry_count = 2;
 
-
-    for (int i = 0;i < entry_count;i++)
+    for (int i = 0;entries[i].name != NULL;i++)
     {
         if (entries[i].active)
         {
