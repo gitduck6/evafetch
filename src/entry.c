@@ -4,7 +4,6 @@
 
 struct sysinfo Systeminfo = {0};
 struct utsname Uname = {0};
-int entry_count;
 entry entries[] =
 {
     {.active = 1, .name = "Hostname", .func_ptr = &get_hostname},

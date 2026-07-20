@@ -13,6 +13,5 @@ typedef struct
 extern struct sysinfo Systeminfo;
 extern struct utsname Uname;
 extern entry entries[];
-extern int entry_count;
 
 #endif
