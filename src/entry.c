@@ -2,7 +2,8 @@
 #include <info.h>
 #include <linux/sysinfo.h>
 
-struct sysinfo info = {0};
+struct sysinfo Systeminfo = {0};
+struct utsname Uname = {0};
 int entry_count;
 entry entries[] =
 {

@@ -1,10 +1,15 @@
+#include "entry.h"
 #include <info.h>
 #include <stdio.h>
 
 char * get_hostname()
 {
-    struct utsname Uname;
-    if (uname(&Uname) == -1)
+    int status = 0;
+
+    if (Uname.sysname[0] == '\0')
+        status = uname(&Uname);
+
+    if (status == -1)
     {
         perror("uname");
         return NULL;
@@ -21,8 +26,12 @@ char * get_hostname()
 
 char * get_kernel()
 {
-    struct utsname Uname;
-    if (uname(&Uname) == -1)
+    int status = 0;
+
+    if (Uname.sysname[0] == '\0')
+        status = uname(&Uname);
+
+    if (status == -1)
     {
         perror("uname");
         return NULL;
@@ -45,7 +54,6 @@ char * get_kernel()
 char * get_ram()
 {
     int status = 0;
-    struct sysinfo Systeminfo;
     /*\
     * uptime is only 0 if sysinfo() hasnt been run yet
     * we do this in order to run sysinfo once even if multiple functions require its output
