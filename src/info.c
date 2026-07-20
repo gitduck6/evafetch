@@ -50,8 +50,8 @@ char * get_ram()
     * we do this in order to run sysinfo once even if multiple functions require its output
     * ill do something similar with uname
     \*/
-    if (info.uptime == 0)
-        status = sysinfo(&info);
+    if (Systeminfo.uptime == 0)
+        status = sysinfo(&Systeminfo);
 
 
     if (status != 0) {
@@ -61,10 +61,10 @@ char * get_ram()
 
     char *msg = "%.2fG/%.2fG (%.0f%%)";
 
-    float total = ((float)info.totalram * info.mem_unit)
+    float total = ((float)Systeminfo.totalram * Systeminfo.mem_unit)
     / (1024 * 1024 * 1024);
 
-    float used = total - (((float)info.freeram * info.mem_unit)
+    float used = total - (((float)Systeminfo.freeram * Systeminfo.mem_unit)
     / (1024 * 1024 * 1024));
 
     int len = snprintf(NULL, 0, msg, used, total, (used/total) * 100);

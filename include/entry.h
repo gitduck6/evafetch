@@ -10,7 +10,8 @@ typedef struct
     char* (*func_ptr)();
 } entry;
 
-extern struct sysinfo info;
+extern struct sysinfo Systeminfo;
+struct utsname Uname;
 extern entry entries[];
 extern int entry_count;
 
