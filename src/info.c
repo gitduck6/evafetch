@@ -113,7 +113,7 @@ char * get_uptime()
     // for example [0] is days, [1] is hours and so on
     // i made it this way for easier iteration
 
-    char * msg = "%dd, %dh, %dm, %ds";
+    char * msg = "%ldd, %ldh, %ldm, %lds";
     long days = raw_uptime / (60*60*24);
     raw_uptime %= 60*60*24;
     long hours = raw_uptime / (60*60);
@@ -137,35 +137,16 @@ char * get_uptime()
     }
 
     int pos = 0;
-    for (int i = 0;i<4;i++)
-    {
-        int val = 0;
-        char unit = 0;
 
-        switch (i)
-        {
-            case 0:
-                unit = 'd';
-                val = days;
-                break;
-            case 1:
-                unit = 'h';
-                val = hours;
-                break;
-            case 2:
-                unit = 'm';
-                val = minutes;
-                break;
-            case 3:
-                unit = 's';
-                val = seconds;
-                break;
-            default:
-                break;
-        }
-        if (val != 0)
-            pos += snprintf(uptime_string + pos, len+1,"%d%c, ", val, unit);
-    }
+    if (days)
+        pos += snprintf(uptime_string + pos, len+1-pos,"%ld%c, ", days, 'd');
+    if (hours)
+        pos += snprintf(uptime_string + pos, len+1-pos,"%ld%c, ", hours, 'h');
+    if (minutes)
+        pos += snprintf(uptime_string + pos, len+1-pos,"%ld%c, ", minutes, 'm');
+    if (seconds)
+        pos += snprintf(uptime_string + pos, len+1-pos,"%ld%c, ", seconds, 's');
+    uptime_string[pos - 2] = '\0';
 
     return uptime_string;
 }
