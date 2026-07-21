@@ -11,5 +11,6 @@
 char * get_hostname();
 char * get_kernel();
 char * get_ram();
+char * get_uptime();
 
 #endif
