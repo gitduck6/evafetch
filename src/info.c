@@ -93,3 +93,42 @@ char * get_ram()
     snprintf(ram_data,  len + 1, msg, used, total, (used/total) * 100);
     return ram_data;
 }
+
+
+char * get_uptime()
+{
+    int status = 0;
+
+    if (Systeminfo.uptime == 0)
+        status = sysinfo(&Systeminfo);
+
+
+    if (status != 0)
+    {
+        perror("sysinfo");
+        return NULL;
+    }
+
+    char * msg = "%dd %dh %dm %ds";
+    long secs = Systeminfo.uptime;
+    long mins = Systeminfo.uptime % 60;
+    long hours = Systeminfo.uptime % (60*60);
+    long days = Systeminfo.uptime % (60*60*24);
+
+    int len = snprintf(NULL, 0, msg, days, hours, mins,secs);
+    if (len < 0 )
+    {
+        perror("snprintf");
+        return NULL;
+    }
+
+    char * uptime_string = malloc(len + 1);
+    if (uptime_string == NULL)
+    {
+        perror("malloc");
+        return NULL;
+    }
+
+    snprintf(uptime_string, len+1, msg, days, hours, mins,secs);
+    return uptime_string;
+}
