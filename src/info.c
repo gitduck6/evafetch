@@ -110,6 +110,9 @@ char * get_uptime()
     }
     long raw_uptime = Systeminfo.uptime;
     long formatted_uptime[4];
+    // every index is a different unit
+    // for example [0] is days, [1] is hours and so on
+    // i made it this way for easier iteration
 
     char * msg = "%dd %dh %dm %ds";
     formatted_uptime[0] = raw_uptime / (60*60*24);
