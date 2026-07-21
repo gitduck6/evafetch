@@ -109,17 +109,19 @@ char * get_uptime()
         return NULL;
     }
     long raw_uptime = Systeminfo.uptime;
+    long formatted_uptime[4];
 
     char * msg = "%dd %dh %dm %ds";
-    long days = raw_uptime / (60*60*24);
+    formatted_uptime[0] = raw_uptime / (60*60*24);
     raw_uptime %= 60*60*24;
-    long hours = raw_uptime / (60*60);
+    formatted_uptime[1] = raw_uptime / (60*60);
     raw_uptime %= 60*60;
-    long mins = raw_uptime / 60;
+    formatted_uptime[2] = raw_uptime / 60;
     raw_uptime %= 60;
-    long secs = raw_uptime;
+    formatted_uptime[3] = raw_uptime;
 
-    int len = snprintf(NULL, 0, msg, days, hours, mins,secs);
+
+    int len = snprintf(NULL, 0, msg, formatted_uptime[0], formatted_uptime[1], formatted_uptime[2],formatted_uptime[3]);
     if (len < 0 )
     {
         perror("snprintf");
@@ -133,6 +135,6 @@ char * get_uptime()
         return NULL;
     }
 
-    snprintf(uptime_string, len+1, msg, days, hours, mins,secs);
+    snprintf(uptime_string, len+1, msg, formatted_uptime[0], formatted_uptime[1], formatted_uptime[2],formatted_uptime[3]);
     return uptime_string;
 }
