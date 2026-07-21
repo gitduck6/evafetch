@@ -109,22 +109,20 @@ char * get_uptime()
         return NULL;
     }
     long raw_uptime = Systeminfo.uptime;
-    long formatted_uptime[4];
     // every index is a different unit
     // for example [0] is days, [1] is hours and so on
     // i made it this way for easier iteration
 
-    char * msg = "%dd %dh %dm %ds";
-    formatted_uptime[0] = raw_uptime / (60*60*24);
+    char * msg = "%dd, %dh, %dm, %ds";
+    long days = raw_uptime / (60*60*24);
     raw_uptime %= 60*60*24;
-    formatted_uptime[1] = raw_uptime / (60*60);
+    long hours = raw_uptime / (60*60);
     raw_uptime %= 60*60;
-    formatted_uptime[2] = raw_uptime / 60;
+    long minutes = raw_uptime / 60;
     raw_uptime %= 60;
-    formatted_uptime[3] = raw_uptime;
+    long seconds = raw_uptime;
 
-
-    int len = snprintf(NULL, 0, msg, formatted_uptime[0], formatted_uptime[1], formatted_uptime[2],formatted_uptime[3]);
+    int len = snprintf(NULL, 0, msg, days, hours, minutes, seconds);
     if (len < 0 )
     {
         perror("snprintf");
@@ -138,6 +136,36 @@ char * get_uptime()
         return NULL;
     }
 
-    snprintf(uptime_string, len+1, msg, formatted_uptime[0], formatted_uptime[1], formatted_uptime[2],formatted_uptime[3]);
+    int pos = 0;
+    for (int i = 0;i<4;i++)
+    {
+        int val = 0;
+        char unit = 0;
+
+        switch (i)
+        {
+            case 0:
+                unit = 'd';
+                val = days;
+                break;
+            case 1:
+                unit = 'h';
+                val = hours;
+                break;
+            case 2:
+                unit = 'm';
+                val = minutes;
+                break;
+            case 3:
+                unit = 's';
+                val = seconds;
+                break;
+            default:
+                break;
+        }
+        if (val != 0)
+            pos += snprintf(uptime_string + pos, len+1,"%d%c, ", val, unit);
+    }
+
     return uptime_string;
 }
