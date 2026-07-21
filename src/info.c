@@ -108,12 +108,16 @@ char * get_uptime()
         perror("sysinfo");
         return NULL;
     }
+    long raw_uptime = Systeminfo.uptime;
 
     char * msg = "%dd %dh %dm %ds";
-    long secs = Systeminfo.uptime;
-    long mins = Systeminfo.uptime % 60;
-    long hours = Systeminfo.uptime % (60*60);
-    long days = Systeminfo.uptime % (60*60*24);
+    long days = raw_uptime / (60*60*24);
+    raw_uptime %= 60*60*24;
+    long hours = raw_uptime / (60*60);
+    raw_uptime %= 60*60;
+    long mins = raw_uptime / 60;
+    raw_uptime %= 60;
+    long secs = raw_uptime;
 
     int len = snprintf(NULL, 0, msg, days, hours, mins,secs);
     if (len < 0 )
