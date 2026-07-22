@@ -1,6 +1,5 @@
 #include <entry.h>
 #include <info.h>
-#include <linux/sysinfo.h>
 
 struct sysinfo Systeminfo = {0};
 struct utsname Uname = {0};

@@ -1,6 +1,6 @@
-#include "entry.h"
+#include <entry.h>
 #include <info.h>
-#include <stdio.h>
+
 
 char * get_hostname()
 {
