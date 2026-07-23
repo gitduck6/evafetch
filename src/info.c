@@ -36,7 +36,7 @@ char * get_prettyname()
                     return NULL;
                 }
                 memcpy(buffer,pos+1,len);
-                buffer[len] = 0;
+                buffer[len-1] = 0;
 
                 fclose(fp);
                 return buffer;
@@ -44,7 +44,6 @@ char * get_prettyname()
 
         }
     }
-    fclose(fp);
     return NULL;
 }
 
