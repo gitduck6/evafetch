@@ -13,9 +13,26 @@ char * get_prettyname()
     {
         while (fgets(line, sizeof(line), fp))
         {
-            if (strstr(line,needle))
+            char * pos = strstr(line,needle);
+            if (pos != NULL)
             {
-                return strdup("PRETTYNAME FOUND");
+                pos += strlen(needle);
+                while (*++pos != '"')
+                {
+                    if (*pos == '\0') return NULL;
+                }
+                int len;
+                for (len = 1;(pos[len] != '"') && (pos[len] != '\0');len++ );
+
+                char * buffer = malloc(len);
+                if (buffer == NULL)
+                {
+                    perror("malloc");
+                    return NULL;
+                }
+                memcpy(buffer,pos,len);
+
+                return buffer;
             }
 
         }
