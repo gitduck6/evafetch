@@ -1,6 +1,28 @@
 #include <entry.h>
 #include <info.h>
 
+char * get_prettyname()
+{
+    // Basically reads PRETTY_NAME from /etc/os-release
+    // might add something with uname as fallback
+    char line[512];
+    char needle[] = "PRETTY_NAME";
+
+    FILE * fp = fopen("/etc/os-release","rb");
+    if (fp != NULL)
+    {
+        while (fgets(line, sizeof(line), fp))
+        {
+            if (strstr(line,needle))
+            {
+                return strdup("PRETTYNAME FOUND");
+            }
+
+        }
+    }
+
+    return NULL;
+}
 
 char * get_hostname()
 {
