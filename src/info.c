@@ -19,25 +19,32 @@ char * get_prettyname()
                 pos += strlen(needle);
                 while (*++pos != '"')
                 {
-                    if (*pos == '\0') return NULL;
+                    if (*pos == '\0')
+                    {
+                        fclose(fp);
+                        return NULL;
+                    }
                 }
                 int len;
                 for (len = 1;(pos[len] != '"') && (pos[len] != '\0');len++ );
 
-                char * buffer = malloc(len);
+                char * buffer = malloc(len + 1);
                 if (buffer == NULL)
                 {
                     perror("malloc");
+                    fclose(fp);
                     return NULL;
                 }
-                memcpy(buffer,pos,len);
+                memcpy(buffer,pos+1,len);
+                buffer[len] = 0;
 
+                fclose(fp);
                 return buffer;
             }
 
         }
     }
-
+    fclose(fp);
     return NULL;
 }
 
