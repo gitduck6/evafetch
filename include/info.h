@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <entry.h>
 
+char * get_prettyname();
 char * get_hostname();
 char * get_kernel();
 char * get_ram();
