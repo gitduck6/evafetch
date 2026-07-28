@@ -10,16 +10,20 @@ int main(void)
     {
         if (entries[i].active)
         {
+            if (entries[i].name != NULL)
+                printf("%s", entries[i].name);
+            if ((entries[i].name != NULL) && (entries[i].func_ptr != NULL))
+                printf(": ");
+
             if (entries[i].func_ptr != NULL)
             {
                 char * value = entries[i].func_ptr();
-                printf("%s: %s\n", entries[i].name, value);
+                printf("%s", value);
                 free(value);
             }
-            else
-            {
-                printf("%s\n", entries[i].name);
-            }
+
+            fputc('\n', stdout);
+
         }
     }
 
