@@ -5,7 +5,7 @@
 
 typedef struct
 {
-    char active;
+    char last;
     char *name;
     char* (*func_ptr)();
 } entry;
