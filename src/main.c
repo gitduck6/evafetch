@@ -6,7 +6,7 @@
 int main(void)
 {
 
-    for (int i = 0;entries[i].name != NULL;i++)
+    for (int i = 0;entries[i].active != 0;i++)
     {
         if (entries[i].active)
         {
