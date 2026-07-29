@@ -14,6 +14,18 @@ char * get_userathost()
         perror("uname");
         return NULL;
     }
+
+    uid_t uid = geteuid();
+    struct passwd * pw = getpwuid(uid);
+
+    if (pw == NULL) return NULL;
+
+    int size = strlen(pw->pw_name) + strlen(Uname.nodename + 2);
+    char * buffer = malloc(size);
+
+    snprintf(buffer, size, "%s@%s", pw->pw_name, Uname.nodename);
+
+    return buffer;
 }
 
 char * get_prettyname()
