@@ -3,11 +3,14 @@
 
 #include <sys/utsname.h>
 #include <sys/sysinfo.h>
+#include <sys/types.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <entry.h>
+#include <pwd.h>
 
+char * get_userathost()
 char * get_prettyname();
 char * get_hostname();
 char * get_kernel();
