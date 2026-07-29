@@ -1,6 +1,21 @@
 #include <entry.h>
 #include <info.h>
 
+char * get_userathost()
+{
+    // e.g. user@hostname
+    int status = 0;
+
+    if (Uname.sysname[0] == '\0')
+        status = uname(&Uname);
+
+    if (status == -1)
+    {
+        perror("uname");
+        return NULL;
+    }
+}
+
 char * get_prettyname()
 {
     // Basically reads PRETTY_NAME from /etc/os-release
