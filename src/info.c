@@ -20,7 +20,7 @@ char * get_userathost()
 
     if (pw == NULL) return NULL;
 
-    int size = strlen(pw->pw_name) + strlen(Uname.nodename + 2);
+    int size = strlen(pw->pw_name) + strlen(Uname.nodename) + 2;
     char * buffer = malloc(size);
 
     snprintf(buffer, size, "%s@%s", pw->pw_name, Uname.nodename);
