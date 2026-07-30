@@ -23,11 +23,20 @@ static inline void print_entry(entry current_entry)
 int main(void)
 {
 
+    char line[64];
+    int entry_index = 0;
+    FILE * fp = fopen(LOGO, "r");
+    int done = 0;
 
 
-    for (int i = 0;entries[i].last == 0;i++)
+    for (;fgets(line, sizeof(line), fp) != NULL;entry_index++)
     {
-        print_entry(entries[i]);
+        if (entries[entry_index].last) done = 1;
+        line[strcspn(line, "\n")] = '\0';
+
+        printf("%s", line);
+        if (!done) print_entry(entries[entry_index]);
+
 
         fputc('\n', stdout);
 
