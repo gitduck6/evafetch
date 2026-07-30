@@ -29,17 +29,21 @@ int main(void)
     int logo_done = 0;
     int data_done = 0;
 
-    while (logo_done && data_done)
+    while (!logo_done && !data_done)
     {
         if (!logo_done && (fgets(line,sizeof(line),fp) != NULL))
         {
+            line[strcspn(line, "\n")] = '\0';
             printf("%s", line);
         } else logo_done = 1;
 
         if (!data_done && (entries[entry_index].last != 1))
         {
             print_entry(entries[entry_index]);
+            entry_index++;
         } else data_done = 1;
+
+        fputc('\n', stdout);
     }
 
     return 0;
