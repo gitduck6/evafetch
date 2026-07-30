@@ -26,20 +26,20 @@ int main(void)
     char line[64];
     int entry_index = 0;
     FILE * fp = fopen(LOGO, "r");
-    int done = 0;
+    int logo_done = 0;
+    int data_done = 0;
 
-
-    for (;fgets(line, sizeof(line), fp) != NULL;entry_index++)
+    while (logo_done && data_done)
     {
-        if (entries[entry_index].last) done = 1;
-        line[strcspn(line, "\n")] = '\0';
+        if (!logo_done && (fgets(line,sizeof(line),fp) != NULL))
+        {
+            printf("%s", line);
+        } else logo_done = 1;
 
-        printf("%s", line);
-        if (!done) print_entry(entries[entry_index]);
-
-
-        fputc('\n', stdout);
-
+        if (!data_done && (entries[entry_index].last != 1))
+        {
+            print_entry(entries[entry_index]);
+        } else data_done = 1;
     }
 
     return 0;
