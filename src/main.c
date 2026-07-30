@@ -29,7 +29,7 @@ int main(void)
     int logo_done = 0;
     int data_done = 0;
 
-    while (!logo_done && !data_done)
+    while (!(logo_done && data_done)) // go untill both are 1
     {
         if (!logo_done && (fgets(line,sizeof(line),fp) != NULL))
         {
