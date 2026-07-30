@@ -3,7 +3,7 @@
 #include <info.h>
 #include <stdlib.h>
 
-#define LOGO "logo.txt"
+#define LOGO "logos/linux.txt"
 
 static inline void print_entry(entry current_entry)
 {
