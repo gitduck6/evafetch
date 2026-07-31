@@ -20,6 +20,12 @@ static inline void print_entry(entry current_entry)
     }
 }
 
+static inline void print_space(int n)
+{
+    for (int i = 0;i < n;i++)
+        fputc(' ', stdout);
+}
+
 int main(void)
 {
 
@@ -41,14 +47,17 @@ int main(void)
 
     while (!(logo_done && data_done)) // go untill both are 1
     {
+        int printed = 0;
+
         if (!logo_done && (fgets(logo_line,sizeof(logo_line),fp) != NULL))
         {
             logo_line[strcspn(logo_line, "\n")] = '\0';
-            printf("%s", logo_line);
+            printed += printf("%s", logo_line);
         } else logo_done = 1;
 
         if (!data_done && (entries[entry_index].last != 1))
         {
+            print_space(max_len-printed);
             print_entry(entries[entry_index]);
             entry_index++;
         } else data_done = 1;
