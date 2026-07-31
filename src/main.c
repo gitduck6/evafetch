@@ -29,6 +29,16 @@ int main(void)
     int logo_done = 0;
     int data_done = 0;
 
+    int max_len = 0;
+
+    while (fgets(logo_line, sizeof(logo_line), fp) != NULL)
+    {
+        int cur_len = strlen(logo_line);
+        if (cur_len > max_len) max_len = cur_len;
+    }
+    rewind(fp);
+
+
     while (!(logo_done && data_done)) // go untill both are 1
     {
         if (!logo_done && (fgets(logo_line,sizeof(logo_line),fp) != NULL))
