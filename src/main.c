@@ -23,7 +23,7 @@ static inline void print_entry(entry current_entry)
 int main(void)
 {
 
-    char line[64];
+    char logo_line[64];
     int entry_index = 0;
     FILE * fp = fopen(LOGO, "r");
     int logo_done = 0;
@@ -31,10 +31,10 @@ int main(void)
 
     while (!(logo_done && data_done)) // go untill both are 1
     {
-        if (!logo_done && (fgets(line,sizeof(line),fp) != NULL))
+        if (!logo_done && (fgets(logo_line,sizeof(logo_line),fp) != NULL))
         {
-            line[strcspn(line, "\n")] = '\0';
-            printf("%s", line);
+            logo_line[strcspn(logo_line, "\n")] = '\0';
+            printf("%s", logo_line);
         } else logo_done = 1;
 
         if (!data_done && (entries[entry_index].last != 1))
