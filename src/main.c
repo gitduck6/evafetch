@@ -1,5 +1,8 @@
+#define _DEFAULT_SOURCE
+
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <entry.h>
 #include <info.h>
 
@@ -24,11 +27,28 @@ static inline void print_space(int n)
         fputc(' ', stdout);
 }
 
-int main(void)
+int main(int argc, char ** argv)
 {
+    char * logo_file =  "logos/linux.txt";
+
+    int c;
+    while ((c = getopt(argc, argv, "l:")) != -1)
+    {
+        switch (c)
+        {
+            case 'l':
+                logo_file = optarg;
+                break;
+            default:
+                fprintf(stderr, "%s -l [LOGO_PATH]", argv[0]);
+                return 1;
+                break;
+
+        }
+    }
 
     char logo_line[64];
-    FILE * fp = fopen(LOGO, "r");
+    FILE * fp = fopen(logo_file, "r");
 
     int max_len = 0;
 
