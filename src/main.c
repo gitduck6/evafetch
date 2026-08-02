@@ -49,6 +49,11 @@ int main(int argc, char ** argv)
 
     char logo_line[64];
     FILE * fp = fopen(logo_file, "r");
+    if (fp == NULL)
+    {
+        perror("fopen");
+        return 2;
+    }
 
     int max_len = 0;
 
