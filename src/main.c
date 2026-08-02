@@ -1,9 +1,7 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <entry.h>
 #include <info.h>
-#include <stdlib.h>
-
-#define LOGO "logos/linux.txt"
 
 static inline void print_entry(entry current_entry)
 {
@@ -30,10 +28,7 @@ int main(void)
 {
 
     char logo_line[64];
-    int entry_index = 0;
     FILE * fp = fopen(LOGO, "r");
-    int logo_done = 0;
-    int data_done = 0;
 
     int max_len = 0;
 
@@ -45,6 +40,9 @@ int main(void)
     rewind(fp);
 
 
+    int entry_index = 0;
+    int logo_done = 0;
+    int data_done = 0;
     while (!(logo_done && data_done)) // go untill both are 1
     {
         int printed = 0;

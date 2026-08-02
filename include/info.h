@@ -11,6 +11,8 @@
 #include <entry.h>
 #include <pwd.h>
 
+#define LOGO "logos/linux.txt"
+
 char * get_userathost();
 char * get_prettyname();
 char * get_hostname();
